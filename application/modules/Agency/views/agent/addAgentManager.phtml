@@ -1,0 +1,155 @@
+<link rel="stylesheet" href="public/css/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="public/css/bootstrap/css/bootstrap-theme.min.css"/>
+<style>
+    input {
+        height: 30px !important;
+    }
+
+    table tr > td:nth-of-type(1) {
+        text-align: left;
+    }
+
+    .inputbox {
+        text-align: center !important;
+    }
+
+    #main-profile {
+        text-align: center !important;
+    }
+
+    #main-profile table {
+        width: 60%;
+        margin-left: 20%;
+    }
+
+    #main-profile table input, textarea {
+        width: 60%;
+    }
+
+    .tips {
+        color: green;
+    }
+</style>
+<div id="page">
+    <link rel="stylesheet" href="public/css/pf-base.css"/>
+    <div id="content" class="mt-body">
+        <div class="col-main" style="float:right;">
+            <div class="main-wrap">
+                <div class="mainzone" style="margin-top:0px;">
+                    <div class='nav' style="background:#fff;">
+                        <ul>
+                            <li><a href="index.php?m=agency&c=agent&a=index&uid=<?php echo $uid; ?>">基本资料</a></li>
+                            <li><a href="">修改资料</a></li>
+                            <li><a href="">产品</a></li>
+
+                            <?php if ($agent['pid'] == 0) { ?>
+                                <li><a
+                                        href="index.php?m=agency&c=agent&a=showUsers&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>">我的经销商</a>
+                                </li>
+
+                            <?php
+                            } else {
+
+                            } ?>
+                            <?php if ($agent_manager['role'] == 1) { ?>
+                                <li class="on">
+                                    <a href="index.php?m=agency&c=agent&a=showAgentManagers&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>">我的员工</a>
+                                </li>
+                            <?php
+                            } ?>
+
+                        </ul>
+                    </div>
+                    <div class='content'>
+                        <div class="bd">
+                            <div class="sns-nf">
+                                <div
+                                    style="font-size:15px;margin:10px 0;text-align:center;background:#f4f4f4;padding:10px 0px">
+                                    亲爱的 <span style="color:darkred"> <?php echo $agent_manager['truename']; ?> </span>,
+                                    欢迎回来
+                                </div>
+
+                                <div id="main-profile" class="inputbox">
+
+                                    <h2 align="center">添加员工</h2>
+                                    <span class="tips"><?php echo $info; ?></span>
+
+                                    <form action="index.php?m=agency&c=agent&a=saveAddAgentManager" method="post">
+                                        <table>
+                                            <tr>
+                                                <td width="20%">uid：</td>
+                                                <td><input class="form-control" name="uid" type="text"
+                                                           value="<?php echo $uid; ?>" readonly/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%">经销商pid：</td>
+                                                <td><input class="form-control" name="pid" type="text"
+                                                           value="<?php echo $pid; ?>" readonly/></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>员工userid：</td>
+                                                <td><input class="form-control" id="userid" name="userid" type="text"
+                                                           placeholder="管理员id" required="required"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>员工姓名：</td>
+                                                <td><input class="form-control" name="truename" type="text"
+                                                           placeholder="用工姓名" required="required"/></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td align="left">
+                                                    <button type="submit" class="btn btn-info"
+                                                            style="width: 100px;margin-top: 10px">提交
+                                                    </button>
+                                                    <button type="reset" class="btn btn-info"
+                                                            style="width: 100px;margin-top: 10px">重置
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+<script src="/public/js/jquery-1.8.3.min.js"></script>
+<script>
+    $(function () {
+        $("#userid").blur(function () {
+            var userid = parseInt($(this).val());
+            console.log(userid);
+            if (isNaN(userid)) {
+                $(".tips").text('员工编号不正确');
+                $(this).focus();
+            } else {
+                $.post('index.php?m=agency&c=agent&a=checkUserid', {'userid': userid}, function (data) {
+                    if (data.status != 1) {
+                        $("#userid").focus();
+                        $(".tips").text(data.info);
+
+                    }else{
+                        $(".tips").text('正确');
+                    }
+                }, 'json');
+            }
+
+        });
+    });
+</script>
+

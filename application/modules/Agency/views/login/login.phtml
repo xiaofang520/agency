@@ -1,0 +1,99 @@
+
+<div class="container">
+    <div class="forget">
+        <div class="login-bg">
+            <!-- 广告位：登录中心左侧550px-360px广告位 -->
+            <!--<script type="text/javascript">BAIDU_CLB_fillSlot("1007610");</script>-->
+        </div>
+        <div id="login" style="width:340px;height:320px;">
+            <div class="loginbox">
+                <h4>会员登录</h4>
+                <div id='error_dlbox'></div>
+                <dl>
+                    <dd class="size12">
+                        <input type="text"  name="username" class="inputAddress username width250" id="username"   placeholder="用户名/邮箱地址"  />
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="size12">
+                        <input type="password" value="" name="password" class="inputAddress password width250" id="password" placeholder="登录密码" />
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="size12">
+                        <input name="autologin" id="autologin" value="1" type="checkbox">&nbsp;记住登录&nbsp;(安全场所使用)
+                        <span><a href="" >忘记密码？</a></span>
+                    </dd>
+                </dl>
+                <input type="hidden" name="jumpurl" id="jumpurl" value="" />
+                <input type="hidden" name="posturl" id="posturl" value="" />
+                <dl style="margin-bottom:0px;">
+                    <dd class='loginzone'>
+                        <input type="button" class="btn_submit1" value=" 登录 " id="btn_submit" style="height:auto;" onclick="btn_submit()">
+                    </dd>
+                </dl>
+                <dl>
+                        <dd class='loginzone' style="text-align:center;padding:10px 0;border-bottom:1px solid #dddddd;">
+                            没有帐号？<a href="" class="blue ml_15" title="立即免费注册">免费注册会员</a>
+                        </dd>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function  btn_submit(){
+
+            var  username=$('#username').val();
+            if(username==''){
+                $('#error_dlbox').show();
+                $('#error_dlbox').html('错误:登录账号不能为空!!!');
+                $('#username').focus();
+                return false;
+            }
+            var  password=$('#password').val();
+            if(password==''){
+                $('#error_dlbox').show();
+                $('#error_dlbox').html('错误:登录密码不能为空!!!');
+                $('#password').focus();
+                return false;
+            }else{
+                $('#error_dlbox').html('');
+            }
+            var  jumpurl=$('#jumpurl').val();
+            jumpurl=encodeURI(jumpurl);
+            $("#btn_submit").val("正在登录");
+            $("#btn_submit").attr("disabled","disabled");
+            $('#error_dlbox').html("");
+            $('#error_dlbox').hide();
+            if($('#autologin').attr("checked")){
+                var autologin=1;
+            }else{
+                var autologin=0;
+            }
+
+            var url='index.php?m=agency&c=agent&a=checkLogin';
+            $.post(url,{username:username,password:password,autologin:autologin},function(result){
+                console.log(result);
+                if(result.status==0){
+                    $("#btn_submit").attr("disabled",false);
+                    $("#btn_submit").val("登录");
+                    $('#error_dlbox').html(result.msg);
+                    $('#error_dlbox').show();
+                    return false;
+                }else if(result.status==1){
+                    $("#btn_submit").val("登录成功");
+                    $('#error_dlbox').html("<font color='#0000ff'>登录成功啦,页面将在3秒后跳转!!!</font>");
+                    $('#error_dlbox').show();
+                    setTimeout("go('"+result.backurl+"')",3000);
+                }
+            },'json');
+        }
+
+        function go(backurl){
+            window.open(backurl,'_self');
+        }
+    </script>
+    <div class="clear"></div>
+</div>

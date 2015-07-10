@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的代理商</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="public/img/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="public/css/header-top-min.css"/>
+    <script src="public/js/jquery-1.9.1.min.js"></script>
+
+
+    <link rel="stylesheet" href="public/css/base.css"/>
+
+
+</head>
+<style>
+    .col-main {
+        width: 980px;
+    }
+
+    #main-profile span {
+        display: block;
+        height: 35px;
+        line-height: 35px;
+    }
+
+    table tr td {
+        line-height: 35px;
+        padding-left: 10px;
+    }
+
+    table.agent-users {
+        width: 100%;
+        margin-top: 10px;
+
+        text-align: center;
+        border: 1px solid #CCCCCC;
+    }
+
+    .agent-users td {
+        padding-left: 5px;
+    }
+
+    /*操作的样式*/
+    .add-manager {
+        text-align: center;
+    }
+
+    .add-manager a {
+        color: blue !important;
+    }
+</style>
+<body>
+<div class="wrap_top">
+    <div class="top">
+        <div class="top_nav">
+            <a href="" title="首页">亿与科技</a>
+        </div>
+        <ul class="fr top_right">
+            <li><a href="" class="savezm">保存到桌面</a></li>
+            <li><a href="" class="scblx">收藏百里奚</a></li>
+            <li><a href="" class="indexpage">百里奚搜索</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="logozone">
+    <div class="logobox">
+        <div class='rightzone'>
+            <p style="margin-top:23px;">
+                <a href='' class='emsbox' title="我的信箱">&nbsp;()&nbsp;信箱
+                </a>
+                <a href='' class='moneybox'>
+                    钱包:&nbsp;&nbsp;
+                </a>
+                <a href='' class='moneybox' title="点击进入积分兑换中心">
+                    积分:&nbsp;22点
+                </a>
+                <a href='' title="退出登录" class='logoutbox'>
+                    退出
+                </a>
+            </p>
+        </div>
+        <div class='logo1'>
+            <a href=''><img src='public/img/header.jpg' border='0' style="width: 50px"></a>
+        </div>
+    </div>
+</div>
+<div id="page">
+    <link rel="stylesheet" href="public/css/pf-base.css"/>
+    <div id="content" class="mt-body">
+        <div class="col-main" style="float:right;">
+            <div class="main-wrap">
+                <div class="mainzone" style="margin-top:0px;">
+                    <div class='nav' style="background:#fff;">
+                        <ul>
+                            <li><a href="index.php?m=agency&c=agent&a=index&uid=<?php echo $uid; ?>">基本资料</a></li>
+                            <li><a href="">修改资料</a></li>
+                            <li><a href="">产品</a></li>
+
+                            <?php if ($agent['pid'] == 0) { ?>
+                                <li class="on"><a
+                                        href="index.php?m=agency&c=agent&a=showUsers&uid=<?php echo $uid; ?>&pid=<?php echo $pid; ?>">我的经销商</a>
+                                </li>
+
+                            <?php
+                            } else {
+
+                            } ?>
+                            <?php if ($agent_manager['role'] == 1) { ?>
+                                <li>
+                                    <a href="index.php?m=agency&c=agent&a=showAgentManagers&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>">我的员工</a>
+                                </li>
+                            <?php
+                            } ?>
+
+                        </ul>
+                    </div>
+                    <div class='content'>
+                        <div class="bd">
+                            <div class="sns-nf">
+                                <div
+                                    style="font-size:15px;margin:10px 0;text-align:center;background:#f4f4f4;padding:10px 0px">
+                                    亲爱的 <span style="color:darkred"> <?php echo $agent_manager['truename']; ?> </span>,
+                                    欢迎回来
+                                </div>
+                                <div class="add-manager">
+                                    <?php
+                                    if ($agent_manager['role'] == 1) {
+                                        ?>
+                                        <a href="index.php?m=agency&c=agent&a=addAgent&uid=<?php echo $uid; ?>&pid=<?php echo $pid; ?>&infoid=1">添加二级经销商</a>
+
+
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                </div>
+                                <hr/>
+                                <div id="main-profile" class="inputbox">
+                                    <table class="agent-users" cellspacing="1" border="1">
+                                        <tr>
+                                            <td>经销商名称</td>
+                                            <td>logo</td>
+                                            <td>简介</td>
+                                            <td>加入时间</td>
+                                        </tr>
+
+                                        <?php
+                                        foreach ($users as $user) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $user['agentname'] ?></td>
+                                                <td><?php echo $user['agentname'] ?></td>
+                                                <td><?php echo $user['content'] ?></td>
+                                                <td><?php echo date("Y-m-d H:i:s", (int)$user['addtime']) ?></td>
+
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<link href=<?php echo P('SITE_CSS_PATH','authority.css');?> type="text/css" rel="stylesheet" >
+<script src=<?php echo P('SITE_JS_PATH','jquery.min.js');?> type="text/javascript"></script>
+<script src=<?php echo P('SITE_JS_PATH','jquery.validate.min.js');?> type="text/javascript"></script>
+<style>
+    body{background:#fff;}
+</style>
+<div id="login" style="width:340px;height:410px;padding: 5px 0px;border: 0px;">
+    <div class="loginbox">
+        <h4>会员登录</h4>
+        <dl id='error_dlbox'>
+        </dl>
+        <dl>
+            <dd class="size12">
+                <input type="text"  name="username" class="inputAddress username width250" id="username" value=""  placeholder="用户名/邮箱地址">
+            </dd>
+        </dl>
+        <dl>
+            <dd class="size12">
+                <input type="password" value="" name="password" class="inputAddress password width250" id="password" placeholder="登录密码">
+            </dd>
+        </dl>
+        <dl>
+            <dd class="size12">
+                <span><a href="{:C('SITE_LOGIN_URL')}?m=Findpwd" target="_parent">忘记密码？</a></span>
+                <input name="autologin" id="autologin" value="1" type="checkbox">&nbsp;记住登录&nbsp;(安全场所使用)
+            </dd>
+        </dl>
+        <input type="hidden" name="jumpurl" value="{$jumpurl}"/>
+        <dl style="margin-bottom:0px;">
+            <dd class='loginzone'>
+                <input type="button" class="btn_submit1" value=" 登录 " id="btn_submit" style="height:auto;" onclick="btn_submit()">
+            </dd>
+        </dl>
+        <dl>
+            <dd class='loginzone' style="text-align:center;padding:10px 0;border-bottom:1px solid #dddddd;">
+                没有帐号？<a href="{:C('SITE_LOGIN_URL')}?m=Register&g=usermodel" target="_parent" class="blue ml_15" title="立即免费注册">免费注册会员</a>
+            </dd>
+        </dl>
+        <dl>
+            <dd>
+                <div class="f12" style="float:left;width:100%;color:#404040;">可以使用以下方式登录/注册</div>
+                <div class="links">
+                    <a href="javascript:;" onclick="window.open('{:C('SITE_LOGIN_URL')}?m=Qqlogin&g=login','_parent'); return false;" ><img src='{:C('SITE_IMAGES_PATH')}/qq.jpg'></a>
+                    <!-- <a href="javascript:;" onclick="window.open('{:C('SITE_LOGIN_URL')}?m=Sinalogin&g=login','_parent'); return false;"><img src='{:C('SITE_IMAGES_PATH')}/sina.jpg'></a> -->
+                </div>
+            </dd>
+        </dl>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btn_submit").click(function(){
+        var  username=$('#username').val();
+        if(username==''){
+            $('#username').focus();
+            $('#username_error').html('错误:登录账号不能为空!!!');
+            return false;
+        }else{
+            $('#username_error').html('');
+        }
+        var  password=$('#password').val();
+        if(password==''){
+            $('#password').focus();
+            $('#password_error').html('错误:登录密码不能为空!!!');
+            return false;
+        }else{
+            $('#password_error').html('');
+        }
+        var  jumpurl="{$_GET.jumpurl|default=C("SITE_UC_URL")}";
+        jumpurl=encodeURI(jumpurl);
+        $("#btn_submit").val("登录中");
+        $("#btn_submit").attr("disabled","disabled");
+        $('#error_dlbox').html("");
+        $('#error_dlbox').hide();
+        if($('#autologin').attr("checked")){
+            var autologin=1;
+        }else{
+            var autologin=0;
+        }
+        var url="{:C('SITE_LOGIN_URL')}?m=Index&g=dologin";
+        $.post(url,{username:username,password:password,autologin:autologin,jumpurl:jumpurl,garden:'me',method:'web',cannel:'jumpbox'},function(result){
+            if(result.status==0){
+                $("#btn_submit").attr("disabled",false);
+                $("#btn_submit").val("登录");
+                $('#error_dlbox').html(result.msg);
+                $('#error_dlbox').show();
+                return false;
+            }else if(result.status==1){
+                $("#btn_submit").val("登录成功");
+                $('#error_dlbox').html("<font color='#00f'>登录成功啦,页面将在3秒后跳转!!!</font>");
+                $('#error_dlbox').show();
+                setTimeout("go('"+result.backurl+"')",3000);
+            }
+        },'json');
+    })
+    function go(url){
+        window.parent.location.href=url;
+    }
+</script>

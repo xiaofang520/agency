@@ -1,0 +1,126 @@
+<style>
+    #main-profile table {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    #main-profile a {
+        color: #0000ff !important;
+    }
+
+    .add-manager {
+        text-align: center;
+        color: #0000ff;
+    }
+
+    .add-manager a {
+        color: #0000ff !important;
+    }
+</style>
+<div id="page">
+    <link rel="stylesheet" href="public/css/pf-base.css"/>
+    <div id="content" class="mt-body">
+        <div class="col-main" style="float:right;">
+            <div class="main-wrap">
+                <div class="mainzone" style="margin-top:0px;">
+                    <div class='nav' style="background:#fff;">
+                        <ul>
+                            <li><a href="index.php?m=agency&c=agent&a=index&uid=<?php echo $uid; ?>">基本资料</a></li>
+                            <li><a href="">修改资料</a></li>
+                            <li><a href="">产品</a></li>
+
+                            <?php if ($agent['pid'] == 0) { ?>
+                                <li><a
+                                        href="index.php?m=agency&c=agent&a=showUsers&uid=<?php echo $uid; ?>&pid=<?php echo $pid; ?>">我的经销商</a>
+                                </li>
+
+                            <?php
+                            } else {
+
+                            } ?>
+                            <?php if ($agent_manager['role'] == 1) { ?>
+                                <li class="on">
+                                    <a href="index.php?m=agency&c=agent&a=showAgentManagers&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>">我的员工</a>
+                                </li>
+                            <?php
+                            } ?>
+
+                        </ul>
+                    </div>
+                    <div class='content'>
+                        <div class="bd">
+                            <div class="sns-nf">
+                                <div
+                                    style="font-size:15px;margin:10px 0;text-align:center;background:#f4f4f4;padding:10px 0px">
+                                    亲爱的 <span style="color:darkred"> <?php echo $agent_manager['truename']; ?> </span>,
+                                    欢迎回来
+                                </div>
+                                <div class="add-manager">
+                                    <?php
+                                    if ($agent_manager['role'] == 1) {
+                                        ?>
+                                        <a href="index.php?m=agency&c=agent&a=addAgentManager&infoid=1&uid=<?php echo $uid; ?>&pid=<?php echo $pid; ?>">添加员工</a>
+
+
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                </div>
+                                <hr/>
+                                <div id="main-profile" class="inputbox">
+                                    <h2 align="center">主要负责人</h2>
+                                    <table>
+                                        <tr>
+                                            <td>员工id</td>
+                                            <td>名称</td>
+                                            <td>操作</td>
+                                        </tr>
+                                        <tr>
+                                            <td><?php echo $main_manager['userid']; ?></td>
+                                            <td><?php echo $main_manager['truename']; ?></td>
+                                            <td>主要负责人</td>
+                                        </tr>
+                                        <?php
+                                        foreach ($managers as $manager) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $manager['userid']; ?></td>
+                                                <td><?php echo $manager['truename']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($manager['role'] == 2) {
+                                                        ?>
+                                                        <a href="index.php?m=agency&c=agent&a=updateManagerRole&role=3&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>&userid=<?php echo $manager['userid']; ?>">解除管理</a>
+
+                                                    <?php
+                                                    } elseif ($manager['role'] == 3) {
+                                                        ?>
+                                                        <a href="index.php?m=agency&c=agent&a=updateManagerRole&role=2&uid=<?php echo $uid; ?>&pid=<?php echo $agent['id']; ?>&userid=<?php echo $manager['userid']; ?>">恢复管理</a>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+legend{color:#000;}
+button,input,select,textarea{font-size:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+#page,#header,#content,#footer{margin-left:auto;margin-right:auto;}
+.w950{width:950px;}.col-main{float:left;width:100%;min-height:1px;}.col-sub,.col-extra{float:left;}
+#site-nav{
+background: #000;Opacity:0.6;
+width: 100%;
+min-width: 950px;
+top: 0px;
+margin: 0 auto;
+height:30px;
+color:#000;
+border-bottom:1px solid #ddd;
+}
+#site-nav-bd{position:relative;width:950px;margin:0 auto;height:21px;line-height:22px;margin:0 auto;z-index:10000;color:#000;}
+#site-nav a{color:#fff;text-decoration:none;}
+#site-nav a:hover{color:#fff;text-decoration:underline;}
+.quick-menu{width:auto;float:right;padding-top:5px;color:#fff;}
+
+#header{padding:0;}
+#logo{padding:16px 0 4px 0;}
+#header .wrap-box{float:right;margin-top:-49px;}
+#logozone{width:100%;height:auto;border-bottom:1px solid #dddddd;padding-top: 54px;}
+#logozone .logobox{width:980px;height:72px;margin:auto;padding:10px 0px;}
+#logozone .logo{margin-top:10px;width:350px;}
+#logozone .rightzone{width:auto;float:right;}
+#logozone .rightzone a{color:#404040;text-decoration:none;margin-left:5px;}
+#logozone .rightzone a.emsbox{background:url(../images/ems.png) no-repeat;padding-left:25px;width:22px;height:22px;overflow: hidden;
+text-indent: -2000em;}
+#logozone .rightzone a.emsbox:hover{background:url(../images/ems_hover.png) no-repeat;}
+#logozone .rightzone a.moneybox{background:url(../images/money.png) no-repeat;padding-left:25px;width:22px;height:22px;overflow: hidden;
+text-indent: -2000em;}
+#logozone .rightzone a.moneybox:hover{background:url(../images/money_hover.png) no-repeat;}
+#logozone .rightzone a.logoutbox{background:url(../images/logout.png) no-repeat;padding-left:25px;width:22px;height:22px;overflow: hidden;
+text-indent: -2000em;}
+#logozone .rightzone a.logoutbox:hover{background:url(../images/logout_hover.png) no-repeat;}
+
+#logozone .menubox{width:980px;margin:auto;height:38px;background:#f95f5f;}
+#logozone .menubox ul{width:980px;height:38px;margin:auto;list-style:none;}
+#logozone .menubox ul li{float:left;padding:9px 20px;font-size:13px;font-weight:600;}
+#logozone .menubox ul li a{color:#fff;}
+#logozone .menubox ul li.on{}
+
+.wrap_top {
+width: 100%;
+background-color: #252525;
+border-bottom: #131313 solid 1px;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+margin: 0 auto;
+height: 43px;
+line-height: 42px;
+position: fixed;
+z-index: 9999;
+left: 0;
+top: 0;
+}
+.wrap_top .top {
+position: relative;
+width: 990px;
+margin: auto;
+font-size: 13px;
+padding-top: 5px;
+}
+.wrap_top .top a {
+color: #aaa;
+}
+.wrap_top .top a.savezm{padding: 2px 8px;margin-top: 1px;background: #1f5294;color: #ffffff;}
+.wrap_top .top a.savezm:hover{background: #ff0000;}
+.wrap_top .top a.savezm{color:#ffffff;}
+.wrap_top .top a.scblx{padding: 2px 8px;margin-top: 1px;background: #F73E3E;color: #ffffff;}
+.wrap_top .top a.scblx:hover{background: #ff0000;}
+.wrap_top .top a.scblx{color:#ffffff;}
+.wrap_top .top a.indexpage {
+padding: 2px 8px;
+margin-top: 1px;
+background: #01a461;
+color: #ffffff;
+}
+.wrap_top .top .top_nav {
+width: 460px;
+float: left;
+text-align: left;
+padding: 6px 0px;
+font: 14px "Microsoft YaHei", "Î¢ÈíÑÅºÚ", "ºÚÌå";
+color: #999999;font-weight: 600;
+}
+.wrap_top .top .top_nav a {
+display: inline-block;
+float: left;
+padding: 0 10px;
+}
+.wrap_top .top .top_nav .drop {
+float: left;
+display: inline;
+position: relative;
+}
+
+.wrap_top .top .top_right {
+position: absolute;
+top: 0;
+right: 0;
+z-index: 201;
+}
+.wrap_top .top .top_right  li{float:right;font-weight: 600;}
