@@ -7,14 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
-    'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
-    'Qiniu\\' => array($vendorDir . '/qiniu/php-sdk/src/Qiniu'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
-    'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
-    'Illuminate\\Events\\' => array($vendorDir . '/illuminate/events'),
-    'Illuminate\\Database\\' => array($vendorDir . '/illuminate/database'),
-    'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
-    'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),

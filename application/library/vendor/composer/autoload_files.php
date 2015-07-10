@@ -6,10 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/danielstjules/stringy/src/Create.php',
-    $vendorDir . '/illuminate/support/helpers.php',
     $vendorDir . '/guzzlehttp/promises/src/functions.php',
     $vendorDir . '/guzzlehttp/psr7/src/functions.php',
-    $vendorDir . '/guzzlehttp/guzzle/src/functions.php',
-    $vendorDir . '/qiniu/php-sdk/src/Qiniu/functions.php',
+    $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
 );

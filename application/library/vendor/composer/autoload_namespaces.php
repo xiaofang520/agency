@@ -7,10 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'PhpConsole' => array($vendorDir . '/php-console/php-console/src'),
-    'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
-    'ExcelAnt' => array($vendorDir . '/wisembly/excelant/lib', $vendorDir . '/wisembly/excelant/test'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Detection' => array($vendorDir . '/mobiledetect/mobiledetectlib/namespaced'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );

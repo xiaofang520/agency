@@ -8,7 +8,10 @@ class TestController extends Base\BaseControllers
 {
 	public function indexAction()
 	{
-        var_dump($this->request);
+		$userModel = new UserModel();
+
+		var_dump($userModel->getAccount());
+
 		return false;
 	}
 }

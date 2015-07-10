@@ -84,38 +84,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
     }
 
     /**
-     * 初始化Orm
-     *
-     * @param Yaf_Dispatcher $dispatcher
-     */
-    public function _initOrm(Yaf_Dispatcher $dispatcher)
-    {
-
-        $capsule = new Capsule();
-
-        $config = Yaf_Application::app()->getConfig()->get('database');
-
-        $database = [
-            'driver' => $config['driver'],
-            'host' => $config['host'],
-            'database' => $config['database'],
-            'username' => $config['username'],
-            'password' => $config['password'],
-            'charset' => $config['charset'],
-            'collation' => $config['collation'],
-            'prefix' => $config['prefix']
-        ];
-
-        $capsule->addConnection($database);
-
-        $capsule->setEventDispatcher(new Dispatcher(new Container()));
-
-        $capsule->setAsGlobal();
-
-        $capsule->bootEloquent();
-    }
-
-    /**
      * 仅在开发时开启
      *
      * @throws Exception

@@ -1,4 +1,4 @@
-<?php namespace BaseClass;
+<?php
 /*!
  * Medoo database framework
  * http://medoo.in
@@ -7,10 +7,6 @@
  * Copyright 2015, Angel Lai
  * Released under the MIT license
  */
-use Exception;
-use PDO;
-use PDOException;
-
 class Medoo
 {
     // General

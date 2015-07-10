@@ -45,6 +45,7 @@ class StreamHandler
             // This list can probably get more comprehensive.
             if (strpos($message, 'getaddrinfo') // DNS lookup failed
                 || strpos($message, 'Connection refused')
+                || strpos($message, "couldn't connect to host") // error on HHVM
             ) {
                 $e = new ConnectException($e->getMessage(), $request, $e);
             }
@@ -66,7 +67,8 @@ class StreamHandler
         $status = $parts[1];
         $reason = isset($parts[2]) ? $parts[2] : null;
         $headers = \GuzzleHttp\headers_from_lines($hdrs);
-        $stream = Psr7\stream_for($this->checkDecode($options, $headers, $stream));
+        list ($stream, $headers) = $this->checkDecode($options, $headers, $stream);
+        $stream = Psr7\stream_for($stream);
         $sink = $this->createSink($stream, $options);
         $response = new Psr7\Response($status, $headers, $sink, $ver, $reason);
 
@@ -106,18 +108,29 @@ class StreamHandler
     {
         // Automatically decode responses when instructed.
         if (!empty($options['decode_content'])) {
-            foreach ($headers as $key => $value) {
-                if (strtolower($key) == 'content-encoding') {
-                    if ($value[0] == 'gzip' || $value[0] == 'deflate') {
-                        return new Psr7\InflateStream(
-                            Psr7\stream_for($stream)
-                        );
+            $normalizedKeys = \GuzzleHttp\normalize_header_keys($headers);
+            if (isset($normalizedKeys['content-encoding'])) {
+                $encoding = $headers[$normalizedKeys['content-encoding']];
+                if ($encoding[0] == 'gzip' || $encoding[0] == 'deflate') {
+                    $stream = new Psr7\InflateStream(
+                        Psr7\stream_for($stream)
+                    );
+                    // Remove content-encoding header
+                    unset($headers[$normalizedKeys['content-encoding']]);
+                    // Fix content-length header
+                    if (isset($normalizedKeys['content-length'])) {
+                        $length = (int) $stream->getSize();
+                        if ($length == 0) {
+                            unset($headers[$normalizedKeys['content-length']]);
+                        } else {
+                            $headers[$normalizedKeys['content-length']] = [$length];
+                        }
                     }
                 }
             }
         }
 
-        return $stream;
+        return [$stream, $headers];
     }
 
     /**
